@@ -117,6 +117,10 @@ All attributes should be under `inno_bundle` in `pubspec.yaml`.
     globally on the end user machine.
   - `false`: Don't require elevated privileges during installation. App will
     install into user-specific folder.
+- `disable_welcome_page`: (`true` or `false`) Defaults to `false`.
+- `disable_dir_page`: (`true` or `false`) Defaults to `false`.
+- `disable_program_page`: (`true` or `false`) Defaults to `false`.
+- `disable_ready_page`: (`true` or `false`) Defaults to `false`.
 
 <span id="attributes-more-1"><sup>1</sup></span> Only **.ico** images were
 tested.

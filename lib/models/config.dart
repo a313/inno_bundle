@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:inno_bundle/models/build_type.dart';
 import 'package:inno_bundle/models/language.dart';
 import 'package:inno_bundle/utils/cli_logger.dart';
@@ -58,6 +59,18 @@ class Config {
   /// Arguments to be passed to flutter build.
   final String? buildArgs;
 
+  /// Arguments to disable Inno Welcome Page.
+  final bool disableWelcomePage;
+
+  /// Arguments to disable select dir Page.
+  final bool disableDirPage;
+
+  /// Arguments to disable select Program Group Page.
+  final bool disableProgramPage;
+
+  /// Arguments to disable Inno Ready Page.
+  final bool disableReadyPage;
+
   /// Creates a [Config] instance with default values.
   const Config({
     required this.buildArgs,
@@ -76,6 +89,10 @@ class Config {
     this.type = BuildType.debug,
     this.app = true,
     this.installer = true,
+    this.disableWelcomePage = false,
+    this.disableDirPage = false,
+    this.disableProgramPage = false,
+    this.disableReadyPage = false,
   });
 
   /// The name of the executable file that is created with flutter build.
@@ -181,25 +198,32 @@ class Config {
           "in pubspec.yaml");
     }
     final bool admin = json['admin'] ?? true;
+    final bool disableWelcomePage = json['disable_welcome_page'] ?? false;
+    final bool disableDirPage = json['disable_dir_page'] ?? false;
+    final bool disableProgramPage = json['disable_program_page'] ?? false;
+    final bool disableReadyPage = json['disable_ready_page'] ?? false;
 
     return Config(
-      buildArgs: buildArgs,
-      id: id,
-      pubspecName: pubspecName,
-      name: name,
-      description: description,
-      version: version,
-      publisher: publisher,
-      url: url,
-      supportUrl: supportUrl,
-      updatesUrl: updatesUrl,
-      installerIcon: installerIcon,
-      languages: languages,
-      admin: admin,
-      type: type,
-      app: app,
-      installer: installer,
-    );
+        buildArgs: buildArgs,
+        id: id,
+        pubspecName: pubspecName,
+        name: name,
+        description: description,
+        version: version,
+        publisher: publisher,
+        url: url,
+        supportUrl: supportUrl,
+        updatesUrl: updatesUrl,
+        installerIcon: installerIcon,
+        languages: languages,
+        admin: admin,
+        type: type,
+        app: app,
+        installer: installer,
+        disableWelcomePage: disableWelcomePage,
+        disableDirPage: disableDirPage,
+        disableProgramPage: disableProgramPage,
+        disableReadyPage: disableReadyPage);
   }
 
   /// Creates a [Config] instance directly from the `pubspec.yaml` file.

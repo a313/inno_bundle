@@ -29,7 +29,10 @@ class ScriptBuilder {
     final installerName = '${camelCase(name)}-x86_64-$version-Installer';
     var installerIcon = config.installerIcon;
     var uninstallIcon = "{app}\\${config.exeName}";
-
+    final disableDirPage = config.disableDirPage ? 'yes' : 'auto';
+    final disableProgramGroupPage = config.disableProgramPage ? 'yes' : 'auto';
+    final disableWelcomePage = config.disableDirPage ? 'yes' : 'no';
+    final disableReadyPage = config.disableReadyPage ? 'yes' : 'no';
     final outputDir = p.joinAll([
       Directory.current.path,
       ...installerBuildDir,
@@ -65,8 +68,10 @@ Compression=lzma2/max
 SolidCompression=yes
 WizardStyle=modern
 ArchitecturesInstallIn64BitMode=x64
-DisableDirPage=auto
-DisableProgramGroupPage=auto
+DisableWelcomePage=$disableWelcomePage
+DisableDirPage=$disableDirPage
+DisableProgramGroupPage=$disableProgramGroupPage
+DisableReadyPage=$disableReadyPage
 \n''';
   }
 
