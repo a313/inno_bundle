@@ -59,17 +59,30 @@ class Config {
   /// Arguments to be passed to flutter build.
   final String? buildArgs;
 
-  /// Arguments to disable Inno Welcome Page.
-  final bool disableWelcomePage;
+  /// Valid values: auto, yes, or no
+  /// Default value: auto
+  /// Description:
+  /// If this is set to yes, Setup will not show the Select Destination Location wizard page.
+  /// If this is set to auto, at startup Setup will look in the registry to see if the same application is already installed, and if so, it will not show the Select Destination Location wizard page.
+  /// If the Select Destination Location wizard page is not shown, it will always use the default directory name.
+  final String disableDirPage;
 
-  /// Arguments to disable select dir Page.
-  final bool disableDirPage;
-
-  /// Arguments to disable select Program Group Page.
-  final bool disableProgramPage;
+  /// If this is set to yes, Setup will not show the Select Start Menu Folder wizard page.
+  /// If this is set to auto, at startup Setup will look in the registry to see if the same application is already installed, and if so, it will not show the Select Start Menu Folder wizard page.
+  /// If the Select Start Menu Folder wizard page is not shown, it will always use the default Start Menu folder name.
+  final String disableProgramGroupPage;
 
   /// Arguments to disable Inno Ready Page.
   final bool disableReadyPage;
+
+  /// Arguments to disable Inno Welcome Page.
+  final bool disableWelcomePage;
+
+  /// Arguments to disable Inno Finished Page.
+  final bool disableFinishedPage;
+
+  /// Arguments to disable Inno Ready Memo Page.
+  final bool disableReadyMemo;
 
   /// Creates a [Config] instance with default values.
   const Config({
@@ -86,13 +99,15 @@ class Config {
     required this.installerIcon,
     required this.languages,
     required this.admin,
+    required this.disableWelcomePage,
+    required this.disableDirPage,
+    required this.disableProgramGroupPage,
+    required this.disableReadyPage,
+    required this.disableFinishedPage,
+    required this.disableReadyMemo,
     this.type = BuildType.debug,
     this.app = true,
     this.installer = true,
-    this.disableWelcomePage = false,
-    this.disableDirPage = false,
-    this.disableProgramPage = false,
-    this.disableReadyPage = false,
   });
 
   /// The name of the executable file that is created with flutter build.
@@ -198,11 +213,13 @@ class Config {
           "in pubspec.yaml");
     }
     final bool admin = json['admin'] ?? true;
-    final bool disableWelcomePage = json['disable_welcome_page'] ?? false;
-    final bool disableDirPage = json['disable_dir_page'] ?? false;
-    final bool disableProgramPage = json['disable_program_page'] ?? false;
+    final bool disableWelcomePage = json['disable_welcome_page'] ?? true;
+    final String disableDirPage = json['disable_dir_page'] ?? 'auto';
+    final String disableProgramPage =
+        json['disable_program_group_page'] ?? 'auto';
     final bool disableReadyPage = json['disable_ready_page'] ?? false;
-
+    final bool disableFinishedPage = json['disable_finished_page'] ?? false;
+    final bool disableReadyMemo = json['disable_ready_memo'] ?? false;
     return Config(
         buildArgs: buildArgs,
         id: id,
@@ -222,8 +239,10 @@ class Config {
         installer: installer,
         disableWelcomePage: disableWelcomePage,
         disableDirPage: disableDirPage,
-        disableProgramPage: disableProgramPage,
-        disableReadyPage: disableReadyPage);
+        disableProgramGroupPage: disableProgramPage,
+        disableReadyPage: disableReadyPage,
+        disableFinishedPage: disableFinishedPage,
+        disableReadyMemo: disableReadyMemo);
   }
 
   /// Creates a [Config] instance directly from the `pubspec.yaml` file.

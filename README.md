@@ -117,10 +117,30 @@ All attributes should be under `inno_bundle` in `pubspec.yaml`.
     globally on the end user machine.
   - `false`: Don't require elevated privileges during installation. App will
     install into user-specific folder.
-- `disable_welcome_page`: (`true` or `false`) Defaults to `false`.
-- `disable_dir_page`: (`true` or `false`) Defaults to `false`.
-- `disable_program_page`: (`true` or `false`) Defaults to `false`.
-- `disable_ready_page`: (`true` or `false`) Defaults to `false`.
+- `disable_dir_page`: (`auto`, `yes`, or `no`) Defaults to `auto`.
+  - `yes`: Setup will not show the Select Destination Location wizard page.
+  - `auto`: At startup, Setup will look in the registry to see if the same application is already installed, and if so, it will not show the Select Destination Location wizard page.
+  - If the Select Destination Location wizard page is not shown, it will always use the default directory name.
+- `disable_program_group_page`: (`auto`, `yes`, or `no`) Defaults to `auto`.
+  - `yes`: Setup will not show the Select Start Menu Folder wizard page.
+  - `auto`: At startup, Setup will look in the registry to see if the same application is already installed, and if so, it will not show the Select Start Menu Folder wizard page.
+  - If the Select Start Menu Folder wizard page is not shown, it will always use the default Start Menu folder name.
+  
+- `disable_finished_page`: (`yes` or `no`) Defaults to `no`.
+  - `yes`: Setup will not show the Setup Completed wizard page, and will immediately close the Setup program once the installation process finishes.
+    Useful if you execute a program in the [Run] section using the `nowait` flag, and don't want the Setup Completed window to remain in the background after the other program has started.
+    Note that the `disable_finished_page` directive is ignored if a restart of the computer is deemed necessary, or if a file is assigned to the `InfoAfterFile` [Setup] section directive. In those cases, the Setup Completed wizard page will still be displayed.  
+- `disable_ready_memo`: (`yes` or `no`) Defaults to `no`.
+  - `yes`: Setup will not show a list of settings on the Ready to Install wizard page.
+  - `no`: The list is shown and contains information like the chosen setup type and the chosen components.
+- `disable_ready_page`: (`yes` or `no`) Defaults to `no`.
+  - `yes`: Setup will not show the Ready to Install wizard page.
+    - When Setup is not running silently, this directive is ignored if no other wizard page before the Ready to Install wizard page has been shown yet.
+    - Setting this to `yes` does not automatically change the caption of the Next button on the new last pre-installation wizard page to Install. You must do so manually instead. For example, if the new last pre-installation wizard page is the Select Program Group page.
+- `disable_welcome_page`: (`yes` or `no`) Defaults to `yes`.
+  - `yes`: Setup will not show the Welcome wizard page.
+  - `no`: Setup will show the Welcome wizard page.
+
 
 <span id="attributes-more-1"><sup>1</sup></span> Only **.ico** images were
 tested.

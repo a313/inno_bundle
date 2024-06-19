@@ -29,10 +29,12 @@ class ScriptBuilder {
     final installerName = '${camelCase(name)}-x86_64-$version-Installer';
     var installerIcon = config.installerIcon;
     var uninstallIcon = "{app}\\${config.exeName}";
-    final disableDirPage = config.disableDirPage ? 'yes' : 'auto';
-    final disableProgramGroupPage = config.disableProgramPage ? 'yes' : 'auto';
-    final disableWelcomePage = config.disableDirPage ? 'yes' : 'no';
+    final disableDirPage = config.disableDirPage;
+    final disableProgramGroupPage = config.disableProgramGroupPage;
+    final disableWelcomePage = config.disableWelcomePage ? 'yes' : 'no';
     final disableReadyPage = config.disableReadyPage ? 'yes' : 'no';
+    final disableFinishedPage = config.disableFinishedPage ? 'yes' : 'no';
+    final disableReadyMemo = config.disableReadyMemo ? 'yes' : 'no';
     final outputDir = p.joinAll([
       Directory.current.path,
       ...installerBuildDir,
@@ -72,6 +74,8 @@ DisableWelcomePage=$disableWelcomePage
 DisableDirPage=$disableDirPage
 DisableProgramGroupPage=$disableProgramGroupPage
 DisableReadyPage=$disableReadyPage
+DisableFinishedPage=$disableFinishedPage
+DisableReadyMemo=$disableReadyMemo
 \n''';
   }
 
